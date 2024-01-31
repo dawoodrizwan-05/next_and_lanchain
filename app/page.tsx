@@ -1,116 +1,203 @@
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+ // Add the 'use client' pragma at the beginning of the file
 
-export default function Home() {
+import React, { useState } from 'react';
+
+const page = () => {
+  const [messages, setMessages] = useState<string[]>([]); // Explicitly specify the type as string[]
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSend = () => {
+    if (inputValue.trim() !== '') {
+      setMessages((prevMessages) => [...prevMessages, inputValue]);
+      setInputValue('');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  };
+  const handleClearChat = () => {
+    setMessages([]);
+  };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <Link href="/api/python">
-            <code className="font-mono font-bold">api/index.py</code>
-          </Link>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex h-screen antialiased text-gray-800">
+    <div className="flex flex-row h-full w-full overflow-x-hidden">
+      <div className="flex flex-col py-8 pl-6 pr-2 w-64 bg-black flex-shrink-0">
+        <div className="flex flex-row items-center justify-center h-12 w-full">
+          <div
+            className="flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-10 w-10"
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+              ></path>
+            </svg>
+          </div>
+          <div className="ml-2 font-bold text-2xl text-white">QuickChat</div>
+        </div>
+        <div
+          className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg"
+        >
+          <div className="h-20 w-20 rounded-full border overflow-hidden">
+            <img
+              src="https://avatars3.githubusercontent.com/u/2763884?s=128"
+              alt="Avatar"
+              className="h-full w-full"
             />
-          </a>
+          </div>
+          <div className="text-sm font-semibold mt-2">DELTA</div>
+          <div className="text-xs text-gray-500">GENERATIVE AI Expert</div>
+          <div className="flex flex-row items-center mt-3">
+            <div
+              className="flex flex-col justify-center h-4 w-8 bg-indigo-500 rounded-full"
+            >
+              <div className="h-3 w-3 bg-white rounded-full self-end mr-1"></div>
+            </div>
+            <div className="leading-none ml-1 text-xs">Active</div>
+          </div>
+        </div>
+        <div className="flex flex-col mt-8">
+          <div className="flex flex-row items-center justify-between text-xs">
+            <span className="font-bold text-white ">History</span>
+            <span
+              className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
+              >4</span>
+          </div>
+          <div className="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
+            <button
+              className="flex flex-row items-center hover:bg-purple-300 rounded-xl p-2"
+            >
+              <div className="ml-2 text-sm font-semibold text-white">Polynomials</div>
+            </button>
+            <button
+              className="flex flex-row items-center hover:bg-purple-300 rounded-xl p-2"
+            >
+              
+              <div className="ml-2 text-sm font-semibold text-white">Exponents</div>
+            </button>
+            <button
+              className="flex flex-row items-center hover:bg-purple-300 rounded-xl p-2"
+            >
+              <div className="ml-2 text-sm font-semibold text-white">Linear Equations</div>
+            </button>
+            <button
+              className="flex flex-row items-center hover:bg-purple-300 rounded-xl p-2"
+            >
+              <div className="ml-2 text-sm font-semibold text-white">Factorization</div>
+            </button>
+            <button
+              className="flex flex-row items-center hover:bg-purple-300 rounded-xl p-2"
+            >
+              <div className="ml-2 text-sm font-semibold text-white">Factorization Equations</div>
+            </button>
+          </div>
+          <div className="flex flex-row items-center justify-between text-xs mt-6">
+            <span className="font-bold text-white">Archivied</span>
+            <span
+              className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
+              >7</span>
+          </div>
+          <div className="flex flex-col space-y-1 mt-4 -mx-2">
+            <button
+              className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
+            >
+              <div className="ml-2 text-sm font-semibold text-white">Henry Boyd</div>
+            </button>
+          </div>
         </div>
       </div>
+      <div className="flex flex-col flex-auto h-full p-6">
+        <div
+          className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gradient-to-tr from-slate-900 to-purple-400 h-full p-4"
+        >
+          <div className="flex flex-col h-full overflow-x-auto mb-4">
+            <div className="flex flex-col h-full">
+              <div className="grid grid-cols-12 gap-y-2">
+              {messages.map((message, index) => (
+                    <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <div className="relative ml-3 text-sm it bg-white py-2 px-4 shadow rounded-xl ">
+                          <div>{message}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+          <div
+            className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+          >
+            <div>
+              <button
+                className="flex items-center justify-center text-gray-400 hover:text-gray-600"
+              >
+                <img src="keyboard.png" className="h-9 w-9" >
+                </img>
+              </button>
+            </div>
+            <div className="flex-grow ml-4">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder="Enter your Problem ...... "
+                  className="flex w-full border rounded-xl  focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                />
+              </div>
+            </div>
+            <div className="ml-4">
+              
+              <button
+                  className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                  onClick={handleSend}
+                >
+                  <span>Send</span>
+                  <span className="ml-2">
+                    <svg
+                      className="w-4 h-4 transform rotate-45 -mt-px"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                      ></path>
+                    </svg>
+                  </span>
+              </button>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+            </div>
+            <button
+                className="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                onClick={handleClearChat}
+              >
+                <span>Clear Chat</span>
+              </button>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    </div>
+  </div>
+  )
 }
+
+export default page
